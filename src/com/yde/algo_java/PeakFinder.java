@@ -1,7 +1,13 @@
-package com.yde.algo;
+
+package com.yde.algo_java;
 import java.util.Scanner;
 
-public class Lecture_1 {
+/**
+ * MIT 6.006 Introduction to Algorithms, Fall 2011;
+ * Coverage of Peak-finder, and comparing algorithms by complexity.
+ * (Lecture 1)
+ */
+public class PeakFinder {
 
     public static void main(String[] args) {
 
