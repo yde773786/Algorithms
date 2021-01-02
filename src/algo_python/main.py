@@ -4,7 +4,7 @@ import document_distance as doc_dist
 
 def main():
     for arg in sys.argv[1:]:
-        if arg == '--doc-dist':
+        if arg == '--document-distance':
             doc_dist.main()
 
 
