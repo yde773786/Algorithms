@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
 	    for(String s: args){
-            switch(s){
-                case "--peak-finder": PeakFinder.main(args);
+            switch(s.toLowerCase()){
+                case "--peakfinder": PeakFinder.main(args);
                                 break;
                 case "--sort": Sort.main(args);
                                 break;

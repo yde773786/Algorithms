@@ -1,0 +1,38 @@
+#!/bin/bash
+
+echo Enter if Java, C or Python
+read -r LANGUAGE
+
+if [ "$LANGUAGE" == "Java" ]; then
+
+  cd com/yde/algo_java || exit
+  # shellcheck disable=SC2010
+  # Provided README.md compliant
+  JAVA=$(ls | grep -E ".java")
+  javac $JAVA
+
+  # shellcheck disable=SC2010
+  # Provided README.md compliant
+  EXECJAVA=$(ls | grep -E ".java" | grep -v "Main.java" | sed 's/.....$//')
+  echo -e Enter a Java program to execute from:'\n'"$EXECJAVA"'\n'
+  read -r PROGRAM
+
+  cd ..; cd ..; cd ..
+  java com.yde.algo_java.Main "--$PROGRAM"
+
+  cd com/yde/algo_java || exit
+  # shellcheck disable=SC2010
+  # Provided README.md compliant
+  ls | grep -E ".class" | xargs rm
+
+elif [ "$LANGUAGE" == "Python" ]; then
+  cd algo_python || exit
+
+  # shellcheck disable=SC2010
+  # Provided README.md compliant
+  EXECPYTHON=$(ls | grep -E ".py" | grep -v "main.py" | sed 's/...$//')
+  echo -e Enter a Python program to execute from:'\n'"$EXECPYTHON"'\n'
+  read -r PROGRAM
+  python main.py "--$PROGRAM"
+
+fi
