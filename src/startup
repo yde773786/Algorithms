@@ -14,8 +14,9 @@ if [ "$LANGUAGE" == "Java" ]; then
   # shellcheck disable=SC2010
   # Provided README.md compliant
   EXECJAVA=$(ls | grep -E ".java" | grep -v "Main.java" | sed 's/.....$//')
-  echo -e Enter a Java program to execute from:'\n'"$EXECJAVA"'\n'
+  echo -e Enter a Java program to read and execute:'\n'"$EXECJAVA"'\n'
   read -r PROGRAM
+  vim $PROGRAM.java
 
   cd ..; cd ..; cd ..
   java com.yde.algo_java.Main "--$PROGRAM"
@@ -31,8 +32,9 @@ elif [ "$LANGUAGE" == "Python" ]; then
   # shellcheck disable=SC2010
   # Provided README.md compliant
   EXECPYTHON=$(ls | grep -E ".py" | grep -v "main.py" | sed 's/...$//')
-  echo -e Enter a Python program to execute from:'\n'"$EXECPYTHON"'\n'
+  echo -e Enter a Python program to read and execute:'\n'"$EXECPYTHON"'\n'
   read -r PROGRAM
-  python main.py "--$PROGRAM"
+  vim $PROGRAM.py
+  python3.8 main.py "--$PROGRAM"
 
 fi

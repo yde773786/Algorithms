@@ -37,7 +37,7 @@ public class Sort {
                 break;
             case 5: mergeSort(arr, 0, arr.length - 1);
                 break;
-            case 6: quickSort(arr);
+            case 6: quickSort(arr, 0, arr.length - 1);
                 break;
             default:
                 System.out.println("No choice");
@@ -157,8 +157,24 @@ public class Sort {
         }
     }
 
-    private static void quickSort(int[] arr) {
-
+    private static void quickSort(int[] arr, int start, int end) {
+        if(end > start){
+            int pivot = arr[end];
+            int lesserPointer = start;
+            for(int i = start; i < end; i++){
+                if(arr[i] < pivot){
+                    int tmp = arr[lesserPointer];
+                    arr[lesserPointer] = arr[i];
+                    arr[i] = tmp;
+                    lesserPointer++;
+                }
+            }
+            int tmp = arr[lesserPointer];
+            arr[lesserPointer] = arr[end];
+            arr[end] = tmp;
+            quickSort(arr, start, lesserPointer - 1);
+            quickSort(arr, lesserPointer + 1, end);
+        }
     }
 
 }
