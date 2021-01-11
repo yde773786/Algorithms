@@ -23,7 +23,8 @@ public class Sort {
                 "3. Insertion Sort\n" +
                 "4. Insertion Binary Sort\n" +
                 "5. Merge Sort\n" +
-                "6. Quick Sort");
+                "6. Quick Sort\n" +
+                "7. Heap Sort");
 
         int choice = in.nextInt();
         switch(choice){
@@ -38,6 +39,8 @@ public class Sort {
             case 5: mergeSort(arr, 0, arr.length - 1);
                 break;
             case 6: quickSort(arr, 0, arr.length - 1);
+                break;
+            case 7: heapsort(arr, arr.length - 1);
                 break;
             default:
                 System.out.println("No choice");
@@ -89,9 +92,8 @@ public class Sort {
         for(int i = 1; i < arr.length; i++){
             int target_pos = binarySearchLocator(arr, i, 0, i - 1);
             int insert = arr[i];
-            for(int j = i - 1; j >= target_pos; j--){
-                arr[j + 1] = arr[j];
-            }
+            if (i - target_pos >= 0) System.arraycopy(arr, target_pos, arr, target_pos + 1,
+                    i - target_pos);
             arr[target_pos] = insert;
         }
     }
@@ -152,9 +154,7 @@ public class Sort {
             pointerTemp++;
         }
 
-        for(int i = start; i <= end; i++){
-            arr[i] = tempArr[i - start];
-        }
+        if (end + 1 - start >= 0) System.arraycopy(tempArr, 0, arr, start, end + 1 - start);
     }
 
     private static void quickSort(int[] arr, int start, int end) {
@@ -174,6 +174,53 @@ public class Sort {
             arr[end] = tmp;
             quickSort(arr, start, lesserPointer - 1);
             quickSort(arr, lesserPointer + 1, end);
+        }
+    }
+
+    private static void heapsort(int[] arr, int workingLength){
+        int[] sortedArr = new int[arr.length];
+        int cnt = 0;
+        while(workingLength > 1){
+            buildMinHeap(arr, workingLength);
+            sortedArr[cnt] = arr[0];
+            cnt++;
+            int temp = arr[0];
+            arr[0] = arr[workingLength];
+            arr[workingLength--] = temp;
+        }
+        int least = arr[0];
+        int most = arr[1];
+        if(least > most){
+            least = arr[1];
+            most = arr[0];
+        }
+        sortedArr[cnt++] = least;
+        sortedArr[cnt] = most;
+        System.arraycopy(sortedArr, 0, arr, 0, sortedArr.length);
+    }
+
+    private static void buildMinHeap(int[] arr, int workingLength){
+        for(int i = (workingLength) / 2; i >= 0; i--){
+            mapHeapify(arr, i, workingLength);
+        }
+    }
+
+    private static void mapHeapify(int[] arr, int p, int workingLength) {
+        if(p < (workingLength) / 2) {
+            int rightNode;
+            if (2 * p + 2 > workingLength) {
+                rightNode = 2 * p + 1;
+            } else
+                rightNode = 2 * p + 2;
+
+            int minIndex = arr[2 * p + 1] < arr[rightNode] ? 2 * p + 1 : rightNode;
+
+            if (arr[p] > arr[minIndex]) {
+                int tmp = arr[minIndex];
+                arr[minIndex] = arr[p];
+                arr[p] = tmp;
+                mapHeapify(arr, minIndex, workingLength);
+            }
         }
     }
 
