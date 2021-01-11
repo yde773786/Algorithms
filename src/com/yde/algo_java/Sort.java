@@ -2,6 +2,11 @@ package com.yde.algo_java;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * A collection of sorting algorithms in order
+ * of Time complexity.
+ */
+
 public class Sort {
 
     public static void main(String[] args){
@@ -23,8 +28,8 @@ public class Sort {
                 "3. Insertion Sort\n" +
                 "4. Insertion Binary Sort\n" +
                 "5. Merge Sort\n" +
-                "6. Quick Sort\n" +
-                "7. Heap Sort");
+                "6. Heap Sort\n" +
+                "7. Quick Sort");
 
         int choice = in.nextInt();
         switch(choice){
@@ -38,9 +43,9 @@ public class Sort {
                 break;
             case 5: mergeSort(arr, 0, arr.length - 1);
                 break;
-            case 6: quickSort(arr, 0, arr.length - 1);
+            case 6: heapsort(arr, arr.length - 1);
                 break;
-            case 7: heapsort(arr, arr.length - 1);
+            case 7: quickSort(arr, 0, arr.length - 1);
                 break;
             default:
                 System.out.println("No choice");
@@ -50,6 +55,14 @@ public class Sort {
 
     }
 
+    /**
+     * Simple sorting technique that searches the array for the next
+     * smallest element and places it in the next free index.
+     *
+     * <p>
+     * Complexity: O(n^2)
+     * @param arr Array to be sorted
+     */
     private static void selectionSort(int[] arr) {
         for(int i = 0; i < arr.length; i++){
             int min = i;
@@ -64,6 +77,15 @@ public class Sort {
         }
     }
 
+    /**
+     * Traverses unsorted part of array and swaps the greater
+     * of two adjacent elements until the end of this unsorted region
+     * is attained. Hence, the sorting is performed from end to start
+     *
+     * <p>
+     * Complexity: O(n^2)
+     * @param arr Array to be sorted
+     */
     private static void bubbleSort(int[] arr) {
         for(int i = 0; i < arr.length; i++){
             for(int j = 0; j < arr.length - 1 - i; j++){
@@ -76,6 +98,14 @@ public class Sort {
         }
     }
 
+    /**
+     * Performs swaps similar to bubble sort, but instead sorts from
+     * start to end.
+     *
+     * <p>
+     * Complexity: O(n^2)
+     * @param arr Array to be sorted
+     */
     private static void insertionSort(int[] arr) {
         for(int i = 1; i < arr.length; i++){
             for(int j = i - 1; j >= 0; j--){
@@ -88,6 +118,14 @@ public class Sort {
         }
     }
 
+    /**
+     * Performs swaps as done in insertion sort, but the location of the index
+     * to which the next unsorted element must go is obtained using binary search.
+     *
+     * <p>
+     * Complexity: O(n^2) [Swaps -> O(n^2) Search -> O(n log(n))]
+     * @param arr Array to be sorted
+     */
     private static void insertionBinarySort(int[] arr) {
         for(int i = 1; i < arr.length; i++){
             int target_pos = binarySearchLocator(arr, i, 0, i - 1);
@@ -117,6 +155,17 @@ public class Sort {
                 return end;
     }
 
+    /**
+     * The array is recursively split into smaller sub-arrays.
+     * The sorted child arrays are now 'merged' back into the
+     * parent.
+     *
+     * <p>
+     * Complexity: O(n log(n))
+     * @param arr Array to be sorted
+     * @param start Starting point of Array
+     * @param end Ending point of Array
+     */
     private static void mergeSort(int[] arr, int start, int end) {
         if(start < end){
             int mid = (start + end) / 2;
@@ -157,6 +206,19 @@ public class Sort {
         if (end + 1 - start >= 0) System.arraycopy(tempArr, 0, arr, start, end + 1 - start);
     }
 
+    /**
+     * Take the final element of an array as the pivot.
+     * Shift elements to the right of pivot or to the left
+     * depending on if its greater than or less than pivot
+     * respectively. Recursively continue the sort in the
+     * two child Arrays on either side of pivot.
+     *
+     * <p>
+     * Complexity: O(n log(n))
+     * @param arr Array to be sorted
+     * @param start Starting point of Array
+     * @param end Ending point of Array
+     */
     private static void quickSort(int[] arr, int start, int end) {
         if(end > start){
             int pivot = arr[end];
@@ -177,6 +239,16 @@ public class Sort {
         }
     }
 
+    /**
+     * Create a min-heap out of the array by recursively swapping
+     * positions of child and parent to maintain the conditions
+     * for a min-heap to be true. Copy the root of the heap
+     * and replace it with a leaf until the array has been
+     * entirely copied (albeit sorted).
+     *
+     * @param arr Array to be sorted
+     * @param workingLength final element index of min-heap part of array
+     */
     private static void heapsort(int[] arr, int workingLength){
         int[] sortedArr = new int[arr.length];
         int cnt = 0;

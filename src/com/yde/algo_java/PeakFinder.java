@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 /**
  * MIT 6.006 Introduction to Algorithms, Fall 2011;
+ * <p>
  * Coverage of Peak-finder, and comparing algorithms by complexity.
  * (Lecture 1)
  */
