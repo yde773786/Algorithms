@@ -12,4 +12,11 @@ statically-typed language are written in Java.
 language that provides no in-built structures. Hence, they will
 be written in C.
   
-Each program can be executed from command-line.
+A shell script in the `src` directory named `startup` maps the 
+name of each program to the source code. On execution, it first
+provides the user with the documented source code in `vim` and then
+runs required program. Navigate to `src`. To begin,
+
+    ./startup
+
+Follow prompts from there on.
